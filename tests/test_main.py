@@ -1,4 +1,4 @@
-from core import get_driver
+from .core.driver import get_driver
 
 
 def test_main_page():
