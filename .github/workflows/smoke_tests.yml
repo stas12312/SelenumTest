@@ -1,6 +1,10 @@
 name: UI Tests
 on: [push, pull_request]
 
+permissions:
+  pull-requests: write
+  checks: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,6 +29,11 @@ jobs:
         run: uv sync --all-extras --dev
         shell: bash
       - name: Run tests
-        run : uv run pytest
+        run : uv run pytest --alluredir=./allure-report
         env:
           DISPLAY: :99
+      - name: Run Allure Action
+        uses: allure-framework/allure-report@v0
+        with:
+          report-directory: "./allure-report"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
