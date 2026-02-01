@@ -8,3 +8,6 @@ def test_main_page():
 
     assert driver.title == "MyWishlists - сервис для составления вишлистов"
     assert True is True
+
+def test_error():
+    assert False is True
