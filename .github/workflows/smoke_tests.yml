@@ -29,4 +29,4 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
       - name: Run tests
-        run : uv run pytest -v --cov=tests
+        run : uv run pytest
