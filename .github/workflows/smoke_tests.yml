@@ -1,0 +1,32 @@
+name: UI Tests
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: nanasess/setup-chromedriver@v2
+
+      - name: Start ChromeDriver
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+      - name: Set up Python 3.13
+        run: uv python install 3.13
+        shell: bash
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+        shell: bash
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+      - name: Run tests
+        run : uv run pytest -v --cov=tests
