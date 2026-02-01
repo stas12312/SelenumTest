@@ -29,7 +29,7 @@ jobs:
         run: uv sync --all-extras --dev
         shell: bash
       - name: Run tests
-        run : uv run pytest --alluredir=./allure-report
+        run : uv run pytest --alluredir=./allure-results
         env:
           DISPLAY: :99
       - name: Upload Allure results  # Загружаем результаты тестов в GitHub Actions
