@@ -7,3 +7,4 @@ def test_main_page():
     driver.get("https://test.mywishlists.ru")
 
     assert driver.title == "MyWishlists - сервис для составления вишлистов"
+    assert True is True
